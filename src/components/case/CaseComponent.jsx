@@ -13,14 +13,16 @@ const CaseComponent = () => {
       const encodedVideoPath = params.get('video_path'); // Get the encoded video path from the URL parameter
       if (encodedVideoPath) {
         const decodedVideoPath = decodeURIComponent(encodedVideoPath); // Decode the video path
+        console.log('Encoded Video Path:', encodedVideoPath);
+        console.log('Decoded Video Path:', decodedVideoPath);
         return decodedVideoPath;
       }
       return null; // Return null if video_path is not provided
     };
   
     const videoPath = getVideoPathFromUrl();
+    console.log('Final Video Path used:', videoPath);
   
-    console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
     const config = {
       role: 'Adopter',
