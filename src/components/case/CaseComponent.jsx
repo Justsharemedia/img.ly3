@@ -9,6 +9,20 @@ const CaseComponent = () => {
   const [video, setVideo] = useState();
 
   useEffect(() => {
+    // Parse the query parameters from the URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const videoPath = queryParams.get('video_path');
+
+    if (videoPath) {
+      // If we have a videoPath, update the video state
+      setVideo({ 
+        full: videoPath,
+        // You will need to handle thumbnail URL and other properties if needed
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     const config = {
       role: 'Adopter',
       theme: 'dark',
@@ -70,9 +84,9 @@ const CaseComponent = () => {
           // Set the fill of the page block to the solid color fill
           engine.block.setFill(page, solidColor);
 
-          // Load the selected video into the scene as a block
-          const selectedVideoURL = video ? video.full : null;
-          console.log("Selected Video URL:", selectedVideoURL); // Add this line
+           // Now using the video state to get the URL
+           const selectedVideoURL = video ? video.full : null;
+           console.log("Selected Video URL:", selectedVideoURL);
     
           if (selectedVideoURL) {
             // Create a graphic block for the video
