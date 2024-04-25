@@ -127,41 +127,11 @@ const CaseComponent = () => {
   }, [cesdkContainer, video]);
 
   return (
-    <div className="gap-sm flex h-full w-full flex-row">
-      <div style={selectResourceWrapper}>
-        <h3 className="h4">Select Video</h3>
-        <div
-          style={{
-            ...videoSelectionWrapper,
-            ...(video || {})
-          }}
-        >
-          {VIDEO_URLS.map((someVideo, index) => (
-            <button
-              onClick={() => setVideo(someVideo)}
-              style={videoButtonStyle}
-              key={someVideo.full}
-              data-cy={`start-with-video-${index}`}
-            >
-              <img
-                src={someVideo.thumbUri}
-                style={{
-                  ...videoStyle,
-                  ...((video === someVideo && videoActiveState) || {})
-                }}
-                alt={someVideo.alt}
-              />
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div style={cesdkWrapperStyle}>
-        <div ref={cesdkContainer} style={cesdkStyle}></div>
-      </div>
+    <div style={cesdkWrapperStyle}>
+      <div ref={cesdkContainer} style={cesdkStyle}></div>
     </div>
   );
-};
+};  
 
 const caseAssetPath = (path, caseId = 'start-with-video') =>
   `${process.env.NEXT_PUBLIC_URL_HOSTNAME}${process.env.NEXT_PUBLIC_URL}/cases/${caseId}${path}`;
