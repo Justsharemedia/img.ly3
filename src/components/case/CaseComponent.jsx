@@ -11,7 +11,7 @@ const CaseComponent = () => {
   useEffect(() => {
     const config = {
       role: 'Adopter',
-      theme: 'light',
+      theme: 'dark',
       callbacks: {
         onExport: 'download',
         onUpload: 'local'
@@ -158,30 +158,30 @@ const caseAssetPath = (path, caseId = 'start-with-video') =>
 // https://www.pexels.com/video/a-young-an-squeezing-an-orange-6975806/
 const VIDEO_URLS = [
   {
-    full: caseAssetPath('/pexels-koolshooters-6975806.mp4'),
-    thumbUri: caseAssetPath('/pexels-koolshooters-6975806.png'),
-    alt: 'A Young an Squeezing An Orange',
+    full: 'https://firebasestorage.googleapis.com/v0/b/jsm-video.appspot.com/o/prod_videos%2FBasinger%20Designer.mp4?alt=media&token=b8a3701e-d85a-408d-b5c6-e8427032e4b2',
+    thumbUri: 'https://i.vimeocdn.com/video/1835017255-9587b13ee3a19cad7a6f2dc4dc8e84e889bb7dbedeb3c135e3bfc4c030414d45-d_450x252?r=pad',
+    alt: 'Basinger Designer',
     author: {
-      name: 'KoolShooters',
-      url: 'https://www.pexels.com/video/a-young-an-squeezing-an-orange-6975806/'
+      name: 'Just Share Media',
+      url: 'https://www.justsharemedia.com'
     }
   },
   {
-    full: caseAssetPath('/pexels-nicola-barts-7930811.mp4'),
-    thumbUri: caseAssetPath('/pexels-nicola-barts-7930811.png'),
+    full: 'https://firebasestorage.googleapis.com/v0/b/jsm-video.appspot.com/o/prod_videos%2Fbeautiful_roofs_prod.mp4?alt=media&token=a97b4fa2-9ea5-49b3-87e7-568adfe468f6',
+    thumbUri: 'https://i.vimeocdn.com/video/1835022214-da2d324fab1eef5f8ebb14989063415380bcdb28f37aab1639143f7c092ce48f-d_450x252?r=pad',
     alt: 'Person Decorating Dessert With Kiwi',
     author: {
-      name: 'Nicola Barts',
-      url: 'https://www.pexels.com/video/person-decorating-dessert-with-kiwi-7930811/'
+      name: 'Just Share Media',
+      url: 'https://www.justsharemedia.com'
     }
   },
   {
-    full: caseAssetPath('/pexels-tima-miroshnichenko-7033913.mp4'),
-    thumbUri: caseAssetPath('/pexels-tima-miroshnichenko-7033913.png'),
-    alt: 'Close Up Video Of An Opened Pomegranate',
+    full: 'https://firebasestorage.googleapis.com/v0/b/jsm-video.appspot.com/o/prod_videos%2Fclinton_prod.mp4?alt=media&token=cb42f0c3-6629-4ae7-a275-336f5b091654',
+    thumbUri: 'https://i.vimeocdn.com/video/1835000277-d050c1cba9e85136e1fe77d8ae46ea891b947bc2b6960db7448bc16d8fc6d8ad-d_450x252?r=pad',
+    alt: 'Clinton',
     author: {
-      name: 'Tima Miroshnichenko',
-      url: 'https://www.pexels.com/video/close-up-video-of-an-opened-pomegranate-7033913/'
+      name: 'Just Share Media',
+      url: 'https://www.justsharemedia.com'
     }
   }
 ];
@@ -196,7 +196,7 @@ const cesdkStyle = {
 
 const cesdkWrapperStyle = {
   position: 'relative',
-  minHeight: '640px',
+  minHeight: '610',
   overflow: 'hidden',
   flexGrow: 1,
   display: 'flex',
