@@ -10,8 +10,12 @@ const CaseComponent = () => {
     const getVideoPathFromUrl = () => {
       const search = window.location.search;
       const params = new URLSearchParams(search);
-      const videoPath = params.get('video_path'); // Get the video path from the URL parameter
-      return videoPath;
+      const encodedVideoPath = params.get('video_path'); // Get the encoded video path from the URL parameter
+      if (encodedVideoPath) {
+        const decodedVideoPath = decodeURIComponent(encodedVideoPath); // Decode the video path
+        return decodedVideoPath;
+      }
+      return null; // Return null if video_path is not provided
     };
   
     const videoPath = getVideoPathFromUrl();
