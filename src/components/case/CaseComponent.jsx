@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 const CaseComponent = () => {
   const cesdkContainer = useRef(null);
   /** @type {[import("@cesdk/cesdk-js").default, Function]} cesdk */
-  const [video, setVideo] = useState();
+  const [video, setVideo] = useState(null);
 
 
   useEffect(() => {
