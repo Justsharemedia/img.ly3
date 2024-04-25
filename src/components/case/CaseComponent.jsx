@@ -20,6 +20,8 @@ const CaseComponent = () => {
   
     const videoPath = getVideoPathFromUrl();
   
+    console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
+
     const config = {
       role: 'Adopter',
       theme: 'dark',
