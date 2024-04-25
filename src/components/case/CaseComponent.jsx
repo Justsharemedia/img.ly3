@@ -11,7 +11,7 @@ const CaseComponent = () => {
   useEffect(() => {
     const config = {
       role: 'Adopter',
-      theme: 'light',
+      theme: 'dark',
       callbacks: {
         onExport: 'download',
         onUpload: 'local'
@@ -28,6 +28,15 @@ const CaseComponent = () => {
               }
             }
           }
+        },
+        pageFormats: {
+          'square': {
+              default: true,
+              width: 1080,
+              height: 1080,
+              unit: 'Pixel',
+              fixedOrientation: true
+          }
         }
       },
       license: process.env.NEXT_PUBLIC_LICENSE
@@ -36,19 +45,80 @@ const CaseComponent = () => {
     if (video && cesdkContainer.current) {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
-          instance.addDefaultAssetSources();
-          instance.addDemoAssetSources({ sceneMode: 'Video' });
           cesdk = instance;
           const engine = cesdk.engine;
-          await engine.scene.createFromVideo(video.full);
+          const layout = 'Horizontal';
+    
+          // Create a scene optimized for video editing
+          let scene = engine.scene.createVideo();
+    
+          // Create a page and set its dimensions
+          const page = engine.block.create('page');
+          await engine.block.appendChild(scene, page);
+          await engine.block.setWidth(page, 1080);
+          await engine.block.setHeight(page, 1080);
+
+          engine.block.setDuration(page, 60);
+           
+          // Create a solid color fill for the page
+          const solidColor = engine.block.createFill('color');
+
+          // Set the color value to black
+          const rgbaBlack = { r: 0, g: 0, b: 0, a: 1 }; // Black color with full opacity
+          engine.block.setColor(solidColor, 'fill/color/value', rgbaBlack);
+
+          // Set the fill of the page block to the solid color fill
+          engine.block.setFill(page, solidColor);
+
+          // Load the selected video into the scene as a block
+          const selectedVideoURL = video ? video.full : null;
+          console.log("Selected Video URL:", selectedVideoURL); // Add this line
+    
+          if (selectedVideoURL) {
+            // Create a graphic block for the video
+            const videoBlock = engine.block.create('graphic');
+            engine.block.setShape(videoBlock, engine.block.createShape('rect'));
+            const videoFill = engine.block.createFill('video');
+            engine.block.setString(
+              videoFill,
+              'fill/video/fileURI',
+              selectedVideoURL
+            );
+            engine.block.setFill(videoBlock, videoFill);
+
+            // Set duration of the video block
+            engine.block.setDuration(videoBlock, 60); 
+
+            // Set position and mode for x and y coordinates
+            engine.block.setPositionX(videoBlock, 0);
+            engine.block.setPositionXMode(videoBlock, 'Absolute'); // or 'Percent' or 'Auto'
+            engine.block.setPositionY(videoBlock, 236.25);
+            engine.block.setPositionYMode(videoBlock, 'Absolute'); // or 'Percent' or 'Auto'
+
+            // Set width and height of the video block
+            engine.block.setWidth(videoBlock, 1080);
+            engine.block.setWidthMode(videoBlock, 'Absolute'); // or 'Percent' or 'Auto'
+            engine.block.setHeight(videoBlock, 607.5);
+            engine.block.setHeightMode(videoBlock, 'Absolute'); // or 'Percent' or 'Auto'
+
+            // Append the video block to the page
+            await engine.block.appendChild(page, videoBlock);
+          }
+    
+          // Zoom the scene's camera on the page
+          engine.scene.zoomToBlock(page);
+    
+ 
         }
       );
     }
+    
     return () => {
       if (cesdk) {
         cesdk.dispose();
       }
     };
+    
   }, [cesdkContainer, video]);
 
   return (
@@ -97,30 +167,30 @@ const caseAssetPath = (path, caseId = 'start-with-video') =>
 // https://www.pexels.com/video/a-young-an-squeezing-an-orange-6975806/
 const VIDEO_URLS = [
   {
-    full: caseAssetPath('/pexels-koolshooters-6975806.mp4'),
-    thumbUri: caseAssetPath('/pexels-koolshooters-6975806.png'),
-    alt: 'A Young an Squeezing An Orange',
+    full: 'https://firebasestorage.googleapis.com/v0/b/jsm-video.appspot.com/o/prod_videos%2FBasinger%20Designer.mp4?alt=media&token=b8a3701e-d85a-408d-b5c6-e8427032e4b2',
+    thumbUri: 'https://i.vimeocdn.com/video/1835017255-9587b13ee3a19cad7a6f2dc4dc8e84e889bb7dbedeb3c135e3bfc4c030414d45-d_450x252?r=pad',
+    alt: 'Basinger Designer',
     author: {
-      name: 'KoolShooters',
-      url: 'https://www.pexels.com/video/a-young-an-squeezing-an-orange-6975806/'
+      name: 'Just Share Media',
+      url: 'https://www.justsharemedia.com'
     }
   },
   {
-    full: caseAssetPath('/pexels-nicola-barts-7930811.mp4'),
-    thumbUri: caseAssetPath('/pexels-nicola-barts-7930811.png'),
+    full: 'https://firebasestorage.googleapis.com/v0/b/jsm-video.appspot.com/o/prod_videos%2Fbeautiful_roofs_prod.mp4?alt=media&token=a97b4fa2-9ea5-49b3-87e7-568adfe468f6',
+    thumbUri: 'https://i.vimeocdn.com/video/1835022214-da2d324fab1eef5f8ebb14989063415380bcdb28f37aab1639143f7c092ce48f-d_450x252?r=pad',
     alt: 'Person Decorating Dessert With Kiwi',
     author: {
-      name: 'Nicola Barts',
-      url: 'https://www.pexels.com/video/person-decorating-dessert-with-kiwi-7930811/'
+      name: 'Just Share Media',
+      url: 'https://www.justsharemedia.com'
     }
   },
   {
-    full: caseAssetPath('/pexels-tima-miroshnichenko-7033913.mp4'),
-    thumbUri: caseAssetPath('/pexels-tima-miroshnichenko-7033913.png'),
-    alt: 'Close Up Video Of An Opened Pomegranate',
+    full: 'https://firebasestorage.googleapis.com/v0/b/jsm-video.appspot.com/o/prod_videos%2Fclinton_prod.mp4?alt=media&token=cb42f0c3-6629-4ae7-a275-336f5b091654',
+    thumbUri: 'https://i.vimeocdn.com/video/1835000277-d050c1cba9e85136e1fe77d8ae46ea891b947bc2b6960db7448bc16d8fc6d8ad-d_450x252?r=pad',
+    alt: 'Clinton',
     author: {
-      name: 'Tima Miroshnichenko',
-      url: 'https://www.pexels.com/video/close-up-video-of-an-opened-pomegranate-7033913/'
+      name: 'Just Share Media',
+      url: 'https://www.justsharemedia.com'
     }
   }
 ];
@@ -135,7 +205,7 @@ const cesdkStyle = {
 
 const cesdkWrapperStyle = {
   position: 'relative',
-  minHeight: '640px',
+  minHeight: '610',
   overflow: 'hidden',
   flexGrow: 1,
   display: 'flex',
