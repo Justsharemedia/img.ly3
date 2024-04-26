@@ -12,10 +12,11 @@ const CaseComponent = () => {
       const params = new URLSearchParams(search);
       const encodedVideoPath = params.get('video_path'); // Get the encoded video path from the URL parameter
       if (encodedVideoPath) {
-        const decodedVideoPath = decodeURIComponent(encodedVideoPath); // Decode the video path
+        const decodedOnce = decodeURIComponent(encodedVideoPath); // First decoding
+        const fullyDecodedVideoPath = decodeURIComponent(decodedOnce); // Second decoding because of double encoding
         console.log('Encoded Video Path:', encodedVideoPath);
-        console.log('Decoded Video Path:', decodedVideoPath);
-        return decodedVideoPath;
+        console.log('Decoded Video Path:', fullyDecodedVideoPath);
+        return fullyDecodedVideoPath;
       }
       return null; // Return null if video_path is not provided
     };
@@ -23,6 +24,7 @@ const CaseComponent = () => {
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
   
+    console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
     const config = {
       role: 'Adopter',
