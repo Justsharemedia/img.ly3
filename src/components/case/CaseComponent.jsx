@@ -14,19 +14,21 @@ const CaseComponent = () => {
       console.log('Video Path used:', videoPath);
       return videoPath; // Since we're using & directly, no need for replacements
     };
-
+  
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
   
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
+
     const config = {
-      baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.24.0/assets', // Set the base URL for assets
-      callbacks: {
-        onUpload: 'local' // Enable local uploads in Asset Library
-      },
       role: 'Adopter',
       theme: 'dark',
+      baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.24.0/assets',
+      callbacks: {
+        onExport: 'download',
+        onUpload: 'local'
+      },
       ui: {
         elements: {
           panels: {
@@ -45,39 +47,50 @@ const CaseComponent = () => {
     };
   
     let cesdk;
-    if (cesdkContainer.current && videoPath) {
+    if (cesdkContainer.current) {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
           cesdk = instance;
-          await cesdk.addDefaultAssetSources(); // Add default asset sources
-          await cesdk.addDemoAssetSources({ sceneMode: 'Design' }); // Add demo asset sources
-
           const engine = cesdk.engine;
-          const scene = engine.scene.createVideo();
+          const layout = 'Horizontal';
+    
+          let scene = engine.scene.createVideo();
           const page = engine.block.create('page');
           await engine.block.appendChild(scene, page);
           await engine.block.setWidth(page, 1080);
           await engine.block.setHeight(page, 1080);
-          engine.block.setDuration(page, 60);
 
+          cesdk.engine.editor.setSettingBool('page/title/show', false);
+          await cesdk.addDefaultAssetSources();
+          await cesdk.addDemoAssetSources({ sceneMode: 'Design' });
+  
+          engine.block.setDuration(page, 60);
+           
           const solidColor = engine.block.createFill('color');
           const rgbaBlack = { r: 0, g: 0, b: 0, a: 1 };
           engine.block.setColor(solidColor, 'fill/color/value', rgbaBlack);
           engine.block.setFill(page, solidColor);
-
-          const videoBlock = engine.block.create('graphic');
-          engine.block.setShape(videoBlock, engine.block.createShape('rect'));
-          const videoFill = engine.block.createFill('video');
-          engine.block.setString(videoFill, 'fill/video/fileURI', videoPath);
-          engine.block.setFill(videoBlock, videoFill);
-
-          engine.block.setDuration(videoBlock, 60);
-          engine.block.setPositionX(videoBlock, 0);
-          engine.block.setPositionY(videoBlock, 236.25);
-          engine.block.setWidth(videoBlock, 1080);
-          engine.block.setHeight(videoBlock, 607.5);
-
-          await engine.block.appendChild(page, videoBlock);
+  
+          if (videoPath) {
+            const videoBlock = engine.block.create('graphic');
+            engine.block.setShape(videoBlock, engine.block.createShape('rect'));
+            const videoFill = engine.block.createFill('video');
+            engine.block.setString(videoFill, 'fill/video/fileURI', videoPath);
+            engine.block.setFill(videoBlock, videoFill);
+  
+            engine.block.setDuration(videoBlock, 60);
+            engine.block.setPositionX(videoBlock, 0);
+            engine.block.setPositionXMode(videoBlock, 'Absolute');
+            engine.block.setPositionY(videoBlock, 236.25);
+            engine.block.setPositionYMode(videoBlock, 'Absolute');
+            engine.block.setWidth(videoBlock, 1080);
+            engine.block.setWidthMode(videoBlock, 'Absolute');
+            engine.block.setHeight(videoBlock, 607.5);
+            engine.block.setHeightMode(videoBlock, 'Absolute');
+  
+            await engine.block.appendChild(page, videoBlock);
+          }
+    
           engine.scene.zoomToBlock(page);
         }
       );
@@ -89,7 +102,8 @@ const CaseComponent = () => {
       }
     };
   
-  }, [cesdkContainer, videoPath]); // Add videoPath as a dependency if its value could affect re-initialization
+  }, [cesdkContainer]);
+  
 
   return (
     <div className="gap-sm flex h-full w-full flex-row">
@@ -100,9 +114,13 @@ const CaseComponent = () => {
   );
 };
 
+
 const cesdkStyle = {
   position: 'absolute',
-  top: 0, right: 0, bottom: 0, left: 0
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0
 };
 
 const cesdkWrapperStyle = {
@@ -112,7 +130,8 @@ const cesdkWrapperStyle = {
   flexGrow: 1,
   display: 'flex',
   borderRadius: '0.75rem',
-  boxShadow:'0px 0px 2px rgba(22, 22, 23, 0.25), 0px 4px 6px -2px rgba(22, 22, 23, 0.12), 0px 2px 2.5px -2px rgba(22, 22, 23, 0.12), 0px 1px 1.75px -2px rgba(22, 22, 23, 0.12)'
+  boxShadow:
+    '0px 0px 2px rgba(22, 22, 23, 0.25), 0px 4px 6px -2px rgba(22, 22, 23, 0.12), 0px 2px 2.5px -2px rgba(22, 22, 23, 0.12), 0px 1px 1.75px -2px rgba(22, 22, 23, 0.12)'
 };
 
 
