@@ -1,8 +1,8 @@
 .ubq-public[data-ubq-theme='dark'][data-ubq-scale='normal'] {
     --ubq-canvas: hsl(230.27, 52.11%, 13.92%);
     --ubq-topbar-background: hsl(218.57, 38.89%, 7.06%);
-    --ubq-elevation-1: hsl(230.4, 52.08%, 18.82%);
-    --ubq-elevation-2: hsl(229.69, 52.46%, 23.92%);
+    --ubq-elevation-1: hsl(218.57, 38.89%, 7.06%);
+    --ubq-elevation-2: hsl(218.57, 38.89%, 7.06%%);
     --ubq-elevation-3: hsl(218.57, 38.89%, 7.06%);
     --ubq-foreground-default: hsla(0, 0%, 100%, 0.9);
     --ubq-foreground-light: hsla(0, 0%, 100%, 0.7);
