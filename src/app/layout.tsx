@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './root.css';
+import '../styles/index.css'; // Path to your new index.css file
+
 
 export const metadata: Metadata = {
   title: 'CE.SDK Showcase',
