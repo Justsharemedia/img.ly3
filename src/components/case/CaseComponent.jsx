@@ -24,7 +24,10 @@ const CaseComponent = () => {
     const config = {
       role: 'Adopter',
       theme: 'dark',
-      baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.24.0/assets',
+      baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets',
+         core: {
+             baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets/core/'
+        },
       callbacks: {
         onExport: 'download',
         onUpload: 'local'
@@ -62,7 +65,7 @@ const CaseComponent = () => {
 
           cesdk.engine.editor.setSettingBool('page/title/show', false);
           await cesdk.addDefaultAssetSources();
-          await cesdk.addDemoAssetSources({ sceneMode: 'Design' });
+          await cesdk.addDemoAssetSources({ sceneMode: 'Video' });
   
           engine.block.setDuration(page, 60);
            
