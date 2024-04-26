@@ -10,19 +10,14 @@ const CaseComponent = () => {
     const getVideoPathFromUrl = () => {
       const search = window.location.search;
       const params = new URLSearchParams(search);
-      const encodedVideoPath = params.get('video_path'); // Get the encoded video path directly
-      if (encodedVideoPath) {
-        // Decode the URL and replace %26 with & for proper parameter separation
-        const decodedVideoPath = decodeURIComponent(encodedVideoPath.replace(/%26/g, '&'));
-        console.log('Decoded Video Path:', decodedVideoPath);
-        return decodedVideoPath;
-      }
-      return null;
+      const videoPath = params.get('video_path'); // Get the video path directly from URL parameters
+      console.log('Video Path used:', videoPath);
+      return videoPath; // Since we're using & directly, no need for replacements
     };
-
+  
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
-    
+  
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
     const config = {
