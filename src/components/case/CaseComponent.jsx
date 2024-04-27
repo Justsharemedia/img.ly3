@@ -114,12 +114,7 @@ const CaseComponent = () => {
           engine.block.setDuration(page, 60);
            
           const solidColor = engine.block.createFill('color');
-          const rgbaBlack = {
-            r: 18 / 255,
-            g: 18 / 255,
-            b: 18 / 255,
-            a: 1  
-          };
+          const rgbaBlack = { r: 0, g: 0, b: 0, a: 1 };
           engine.block.setColor(solidColor, 'fill/color/value', rgbaBlack);
           engine.block.setFill(page, solidColor);
   
