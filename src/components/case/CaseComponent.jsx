@@ -20,7 +20,7 @@ const CaseComponent = () => {
 
     const params = new URLSearchParams(window.location.search);
     const customer_id = params.get('customer_id');
-    console.log('Got the customer ID', customer_id)
+    console.log('Got the customer_ID yes', customer_id)
   
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
