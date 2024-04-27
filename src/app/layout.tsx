@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './root.css';
-import '../styles/index.css'; // Path to your new index.css file
+import '../styles/index.css'; 
 
 
 export const metadata: Metadata = {
