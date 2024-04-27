@@ -10,13 +10,17 @@ const CaseComponent = () => {
     const getVideoPathFromUrl = () => {
       const search = window.location.search;
       const params = new URLSearchParams(search);
-      const videoPath = params.get('video_path'); // Get the video path directly from URL parameters
+      const videoPath = params.get('video_path'); 
       console.log('Video Path used:', videoPath);
-      return videoPath; // Since we're using & directly, no need for replacements
+      return videoPath; 
     };
   
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
+
+    const params = new URLSearchParams(window.location.search);
+    const cx_id = params.get('cx_id');
+    console.log('Got the Cx', cx_id)
   
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
@@ -28,10 +32,50 @@ const CaseComponent = () => {
          core: {
              baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets/core/'
         },
-      callbacks: {
-        onExport: 'download',
-        onUpload: 'local'
-      },
+        callbacks: {
+          onUnsupportedBrowser: () => {
+            window.alert(
+              'Your current browser is not supported.\nPlease use one of the following:\n\n- Mozilla Firefox 86 or newer\n- Apple Safari 14.1 or newer\n- Microsoft Edge 88 or newer\n- Google Chrome 88 or newer'
+            );
+          },
+          onExport: async (scene) => {
+            console.info('Export callback!');
+        
+            const data = {
+              timestamp: new Date().toISOString(), 
+              customer_id: cx_id, 
+              callback_type: 'export',
+              callback_message: 'User triggered export'
+            };
+        
+            fetch('https://yourapp.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+
+              },
+              body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+          },
+          onBack: () => {
+            window.alert('Back callback!');
+          },
+          onClose: () => {
+            window.alert('Close callback!');
+          },
+          onSave: (scene) => {
+            window.alert('Save callback!');
+            console.info(scene);
+          },
+          onDownload: (scene) => {
+            window.alert('Download callback!');
+            console.info(scene);
+          },
+        },
+
       ui: {
         elements: {
           panels: {
@@ -132,7 +176,6 @@ const cesdkWrapperStyle = {
   overflow: 'hidden',
   flexGrow: 1,
   display: 'flex',
- //borderRadius: '0.75rem',
   boxShadow:
     '0px 0px 2px rgba(22, 22, 23, 0.25), 0px 4px 6px -2px rgba(22, 22, 23, 0.12), 0px 2px 2.5px -2px rgba(22, 22, 23, 0.12), 0px 1px 1.75px -2px rgba(22, 22, 23, 0.12)'
 };
