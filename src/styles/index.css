@@ -1,6 +1,6 @@
 .ubq-public[data-ubq-theme='dark'][data-ubq-scale='normal'] {
     --ubq-toolbar-background: hsl(218.57, 38.89%, 7.06%);
-    --ubq-canvas: hsl(0, 0%, 100%);
+    --ubq-canvas: hsl(218.57, 38.89%, 7.06%);
     --ubq-topbar-background: hsl(218.57, 38.89%, 7.06%);
     --ubq-elevation-1: hsl(218.57, 38.89%, 7.06%);
     --ubq-elevation-2: hsl(218.57, 38.89%, 7.06%) !important;
