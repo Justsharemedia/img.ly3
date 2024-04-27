@@ -18,9 +18,9 @@ const CaseComponent = () => {
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
 
-//    const params = new URLSearchParams(window.location.search);
-//    const customer_id = params.get('customer_id');
-//    console.log('Got the customer_ID', customer_id)
+    const params = new URLSearchParams(window.location.search);
+    const customer_id = params.get('customer_id');
+    console.log('Got the customer_ID', customer_id)
   
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
@@ -33,8 +33,47 @@ const CaseComponent = () => {
              baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets/core/'
         },
         callbacks: {
-          onExport: 'download',
-          onUpload: 'local'
+          onUnsupportedBrowser: () => {
+            window.alert(
+              'Your current browser is not supported.\nPlease use one of the following:\n\n- Mozilla Firefox 86 or newer\n- Apple Safari 14.1 or newer\n- Microsoft Edge 88 or newer\n- Google Chrome 88 or newer'
+            );
+          },
+          onExport: async (scene) => {
+            console.info('Export callback!');
+        
+            const data = {
+              timestamp: new Date().toISOString(), 
+              customer_id: customer_id, 
+              callback_type: 'export',
+              callback_message: 'User triggered export'
+            };
+        
+            fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+
+              },
+              body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+          },
+          onBack: () => {
+            window.alert('Back callback!');
+          },
+          onClose: () => {
+            window.alert('Close callback!');
+          },
+          onSave: (scene) => {
+            window.alert('Save callback!');
+            console.info(scene);
+          },
+          onDownload: (scene) => {
+            window.alert('Download callback!');
+            console.info(scene);
+          },
         },
 
       ui: {
