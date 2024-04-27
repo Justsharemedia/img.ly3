@@ -18,10 +18,22 @@ const CaseComponent = () => {
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
 
+    // Log the entire current URL
+    console.log('Current URL:', window.location.href);
+
+    // Log the search part of the URL
+    console.log('Search Part of URL:', window.location.search);
+
+    // Create a URLSearchParams object from the search part of the URL
     const params = new URLSearchParams(window.location.search);
+
+    // Log all parameters parsed by URLSearchParams
+    console.log('All URL Params:', Array.from(params.entries()));
+
+    // Retrieve and log the customer_id
     const customer_id = params.get('customer_id');
-    console.log('Got the customer_ID yes', customer_id)
-  
+    console.log('Got the customer_ID:', customer_id);
+      
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
 
