@@ -19,8 +19,8 @@ const CaseComponent = () => {
     console.log('Final Video Path used:', videoPath);
 
     const params = new URLSearchParams(window.location.search);
-    const cx_id = params.get('cx_id');
-    console.log('Got the Cx', cx_id)
+    const customer_id = params.get('customer_id');
+    console.log('Got the Cx', customer_id)
   
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
@@ -43,7 +43,7 @@ const CaseComponent = () => {
         
             const data = {
               timestamp: new Date().toISOString(), 
-              customer_id: cx_id, 
+              customer_id: customer_id, 
               callback_type: 'export',
               callback_message: 'User triggered export'
             };
