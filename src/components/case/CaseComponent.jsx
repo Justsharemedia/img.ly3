@@ -48,7 +48,7 @@ const CaseComponent = () => {
               callback_message: 'User triggered export'
             };
         
-            fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
+            fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user/initialize', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const CaseComponent = () => {
           engine.block.setDuration(page, 60);
            
           const solidColor = engine.block.createFill('color');
-          const rgbaBlack = { r: 0, g: 0, b: 0, a: 1 };
+          const rgbaBlack = { r: 18, g: 18, b: 18, a: 1 };
           engine.block.setColor(solidColor, 'fill/color/value', rgbaBlack);
           engine.block.setFill(page, solidColor);
   
