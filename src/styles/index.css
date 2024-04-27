@@ -7,11 +7,7 @@
     --ubq-foreground-default: hsla(0, 0%, 100%, 0.9);
     --ubq-foreground-light: hsla(0, 0%, 100%, 0.7);
     --ubq-foreground-info: hsla(0, 0%, 100%, 0.5);
-    --ubq-interactive-default: linear-gradient(
-        135deg,
-        hsl(218.82, 73.91%, 59.41%) 0%,
-        hsl(218.78, 94.84%, 30.39%) 100%
-      );   
+    --ubq-interactive-default:  hsla(0, 0%, 100%, 0.9);
     --ubq-interactive-hover: hsl(229.69, 52.46%, 23.92%);
     --ubq-interactive-pressed: hsl(230.45, 52.38%, 16.47%);
     --ubq-input-default: hsl(234, 50%, 3.92%);
@@ -42,7 +38,11 @@
       hsla(0, 0%, 100%, 0.5);
     --ubq-notice-info: hsla(0, 0%, 100%, 1);
     --ubq-foreground-accent: hsl(0, 0%, 0%);
-    --ubq-interactive-accent-default: hsl(0, 0%, 100%);
+    --ubq-interactive-accent-default: linear-gradient(
+        135deg,
+        hsl(218.82, 73.91%, 59.41%) 0%,
+        hsl(218.78, 94.84%, 30.39%) 100%
+      );  
     --ubq-interactive-accent-hover: hsl(0, 0%, 100%);
     --ubq-interactive-accent-pressed: hsl(0, 0%, 95%);
     --ubq-focus-default: hsl(288.99, 0%, 92.5%);
