@@ -3,7 +3,7 @@
     --ubq-canvas: hsl(0, 0%, 100%);
     --ubq-topbar-background: hsl(218.57, 38.89%, 7.06%);
     --ubq-elevation-1: hsl(218.57, 38.89%, 7.06%);
-    --ubq-elevation-2: hsl(218.57, 38.89%, 7.06%%);
+    --ubq-elevation-2: hsl(218.57, 38.89%, 7.06%) !important;
     --ubq-elevation-3: hsl(218.57, 38.89%, 7.06%);
     --ubq-foreground-default: hsla(0, 0%, 100%, 0.9);
     --ubq-foreground-light: hsla(0, 0%, 100%, 0.7);
