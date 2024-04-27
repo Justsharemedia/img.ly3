@@ -1,5 +1,6 @@
 .ubq-public[data-ubq-theme='dark'][data-ubq-scale='normal'] {
-    --ubq-canvas: hsl(218.57, 38.89%, 7.06%);
+    --ubq-toolbar-background: hsl(218.57, 38.89%, 7.06%);
+    --ubq-canvas: hsl(0, 0%, 100%);
     --ubq-topbar-background: hsl(218.57, 38.89%, 7.06%);
     --ubq-elevation-1: hsl(218.57, 38.89%, 7.06%);
     --ubq-elevation-2: hsl(218.57, 38.89%, 7.06%%);
@@ -37,13 +38,13 @@
       ),
       hsla(0, 0%, 100%, 0.5);
     --ubq-notice-info: hsla(0, 0%, 100%, 1);
-    --ubq-foreground-accent: hsl(0, 0%, 0%);
-    --ubq-interactive-accent-default: linear-gradient(
+    --ubq-foreground-accent: hsl(0, 0%, 100%);
+    --ubq-interactive-accent-default: hsl(218.82, 73.91%, 59.41%);
+    --ubq-interactive-accent-hover:  linear-gradient(
         135deg,
         hsl(218.82, 73.91%, 59.41%) 0%,
         hsl(218.78, 94.84%, 30.39%) 100%
-      );  
-    --ubq-interactive-accent-hover: hsl(0, 0%, 100%);
+      );
     --ubq-interactive-accent-pressed: hsl(0, 0%, 95%);
     --ubq-focus-default: hsl(288.99, 0%, 92.5%);
     --ubq-notice-warning: hsl(37.45, 0%, 93.5%);
@@ -128,3 +129,7 @@
     --ubq-typography-button-m-weight: unset;
   }
   
+  .UBQ_AssetLibraryDock-module__block--Cgfpm {
+    background-color: var(--ubq-toolbar-background); 
+   
+}
