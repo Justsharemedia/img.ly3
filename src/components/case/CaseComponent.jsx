@@ -70,9 +70,32 @@ const CaseComponent = () => {
             window.alert('Save callback!');
             console.info(scene);
           },
-          onDownload: (scene) => {
-            window.alert('Download callback!');
-            console.info(scene);
+          onDownload: async (scene) => {
+            console.info('Download callback!');
+
+            // Export page as mp4 video.
+            const mimeType = 'video/mp4';
+            const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
+              console.log(
+                'Rendered',
+                renderedFrames,
+                'frames and encoded',
+                encodedFrames,
+                'frames out of',
+                totalFrames
+              );
+            };
+            const blob = await scene.exportVideo(
+              mimeType,
+              progressCallback,
+              {}
+            );
+
+            // Download blob
+            const anchor = document.createElement('a');
+            anchor.href = URL.createObjectURL(blob);
+            anchor.download = 'justsharemedia_export.mp4';
+            anchor.click();
           },
         },
 
