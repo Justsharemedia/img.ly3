@@ -130,6 +130,6 @@
   }
   
   .UBQ_AssetLibraryDock-module__block--Cgfpm {
-    background-color: var(--ubq-toolbar-background); 
+    background-color: var(--ubq-toolbar-background) !important; 
    
 }
