@@ -8,39 +8,6 @@ const CaseComponent = () => {
   let cesdk;
   let page;
 
-  const exportVideo = async () => {
-    if (!cesdk || !page) {
-      console.error('CESDK or page is not properly initialized.');
-      return;
-    }
-    const mimeType = 'video/mp4';
-    const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
-      console.log(
-        'Rendered',
-        renderedFrames,
-        'frames and encoded',
-        encodedFrames,
-        'frames out of',
-        totalFrames
-      );
-    };
-    const videoOptions = {
-      targetWidth: 1080,
-      targetHeight: 1080,
-    };
-    try {
-      const videoBlob = await cesdk.engine.block.exportVideo(page, mimeType, progressCallback, videoOptions);
-      
-      // Download the exported video
-      const anchor = document.createElement('a');
-      anchor.href = URL.createObjectURL(videoBlob);
-      anchor.download = 'exported-video.mp4';
-      anchor.click();
-    } catch (error) {
-      console.error('Error exporting video:', error);
-    }
-  };
-
   useEffect(() => {
     const getVideoPathFromUrl = () => {
       const search = window.location.search;
@@ -64,52 +31,51 @@ const CaseComponent = () => {
       role: 'Adopter',
       theme: 'dark',
       baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets',
-         core: {
-             baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets/core/'
+      core: {
+        baseURL: 'https://cdn.img.ly/packages/imgly/cesdk-js/1.25.0/assets/core/'
+      },
+      callbacks: {
+        onUnsupportedBrowser: () => {
+          window.alert(
+            'Your current browser is not supported.\nPlease use one of the following:\n\n- Mozilla Firefox 86 or newer\n- Apple Safari 14.1 or newer\n- Microsoft Edge 88 or newer\n- Google Chrome 88 or newer'
+          );
         },
-        callbacks: {
-          onUnsupportedBrowser: () => {
-            window.alert(
-              'Your current browser is not supported.\nPlease use one of the following:\n\n- Mozilla Firefox 86 or newer\n- Apple Safari 14.1 or newer\n- Microsoft Edge 88 or newer\n- Google Chrome 88 or newer'
-            );
-          },
-          onExport: async (scene) => {
-            console.info('Export callback!');
-        
-            const data = {
-              timestamp: new Date().toISOString(), 
-              customer_id: customer_id, 
-              callback_type: 'export',
-              callback_message: 'User triggered export'
-            };
-        
-            fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-
-              },
-              body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            exportVideo();
-          },
-          onBack: () => {
-            window.alert('Back callback!');
-          },
-          onClose: () => {
-            window.alert('Close callback!');
-          },
-          onSave: (scene) => {
-            window.alert('Save callback!');
-            console.info(scene);
-          },
-          onDownload: (scene) => {
-            window.alert('Download callback!');
-            console.info(scene);
-          },
+        onExport: async (scene) => {
+          console.info('Export callback!');
+      
+          const data = {
+            timestamp: new Date().toISOString(), 
+            customer_id: customer_id, 
+            callback_type: 'export',
+            callback_message: 'User triggered export'
+          };
+      
+          fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+          })
+          .then(response => response.json())
+          .then(data => console.log('Success:', data))
+          exportVideo();
         },
+        onBack: () => {
+          window.alert('Back callback!');
+        },
+        onClose: () => {
+          window.alert('Close callback!');
+        },
+        onSave: (scene) => {
+          window.alert('Save callback!');
+          console.info(scene);
+        },
+        onDownload: (scene) => {
+          window.alert('Download callback!');
+          console.info(scene);
+        },
+      },
 
       ui: {
         elements: {
@@ -130,7 +96,6 @@ const CaseComponent = () => {
       license: process.env.NEXT_PUBLIC_LICENSE
     };
   
-    let cesdk;
     if (cesdkContainer.current) {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
@@ -139,7 +104,7 @@ const CaseComponent = () => {
           const layout = 'Horizontal';
     
           let scene = engine.scene.createVideo();
-          const page = engine.block.create('page');
+          page = engine.block.create('page');
           await engine.block.appendChild(scene, page);
           await engine.block.setWidth(page, 1080);
           await engine.block.setHeight(page, 1080);
@@ -188,6 +153,38 @@ const CaseComponent = () => {
   
   }, [cesdkContainer]);
   
+  const exportVideo = async () => {
+    if (!cesdk || !page) {
+      console.error('CESDK or page is not properly initialized.');
+      return;
+    }
+    const mimeType = 'video/mp4';
+    const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
+      console.log(
+        'Rendered',
+        renderedFrames,
+        'frames and encoded',
+        encodedFrames,
+        'frames out of',
+        totalFrames
+      );
+    };
+    const videoOptions = {
+      targetWidth: 1080,
+      targetHeight: 1080,
+    };
+    try {
+      const videoBlob = await cesdk.engine.block.exportVideo(page, mimeType, progressCallback, videoOptions);
+      
+      // Download the exported video
+      const anchor = document.createElement('a');
+      anchor.href = URL.createObjectURL(videoBlob);
+      anchor.download = 'exported-video.mp4';
+      anchor.click();
+    } catch (error) {
+      console.error('Error exporting video:', error);
+    }
+  };
 
   return (
     <div className="gap-sm flex h-full w-full flex-row">
@@ -197,7 +194,6 @@ const CaseComponent = () => {
     </div>
   );
 };
-
 
 const cesdkStyle = {
   position: 'absolute',
