@@ -62,6 +62,10 @@ const CaseComponent = () => {
             const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
               console.log(`Progress: ${renderedFrames}/${encodedFrames}/${totalFrames}`);
             };
+            const options = {
+              targetWidth: 1080,
+              targetHeight: 1080,
+            };
             cesdk.engine.block.exportVideo(scene, mimeType, progressCallback)
               .then(blob => {
                   const anchor = document.createElement('a');
