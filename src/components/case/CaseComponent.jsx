@@ -9,6 +9,10 @@ const CaseComponent = () => {
   let page;
 
   const exportVideo = async () => {
+    if (!cesdk || !page) {
+      console.error('CESDK or page is not properly initialized.');
+      return;
+    }
     const mimeType = 'video/mp4';
     const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
       console.log(
