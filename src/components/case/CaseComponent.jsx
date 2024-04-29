@@ -5,8 +5,38 @@ import React, { useEffect, useRef } from 'react';
 
 const CaseComponent = () => {
   const cesdkContainer = useRef(null);
-
+  let cesdk;
   let page;
+
+  const exportVideo = async () => {
+    const mimeType = 'video/mp4';
+    const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
+      console.log(
+        'Rendered',
+        renderedFrames,
+        'frames and encoded',
+        encodedFrames,
+        'frames out of',
+        totalFrames
+      );
+    };
+    const videoOptions = {
+      targetWidth: 1080,
+      targetHeight: 1080,
+    };
+    try {
+      const videoBlob = await cesdk.engine.block.exportVideo(page, mimeType, progressCallback, videoOptions);
+      
+      // Download the exported video
+      const anchor = document.createElement('a');
+      anchor.href = URL.createObjectURL(videoBlob);
+      anchor.download = 'exported-video.mp4';
+      anchor.click();
+    } catch (error) {
+      console.error('Error exporting video:', error);
+    }
+  };
+
   useEffect(() => {
     const getVideoPathFromUrl = () => {
       const search = window.location.search;
@@ -59,34 +89,7 @@ const CaseComponent = () => {
             })
             .then(response => response.json())
             .then(data => console.log('Success:', data))
-            console.log(scene);
-            console.log(page);
-            const mimeType = 'video/mp4';
-            const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
-              console.log(
-                'Rendered',
-                renderedFrames,
-                'frames and encoded',
-                encodedFrames,
-                'frames out of',
-                totalFrames
-              );
-            };
-            const videoOptions = {
-              targetWidth: 1080,
-              targetHeight: 1080,
-            };
-            try {
-              const videoBlob = await cesdk.engine.block.exportVideo(page, progressCallback, videoOptions);
-              
-              // Download the exported video
-              const anchor = document.createElement('a');
-              anchor.href = URL.createObjectURL(blob);
-              anchor.download = 'exported-video.mp4';
-              anchor.click();
-            } catch (error) {
-              console.error('Error exporting video:', error);
-            }
+            exportVideo();
           },
           onBack: () => {
             window.alert('Back callback!');
