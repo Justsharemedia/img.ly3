@@ -66,14 +66,17 @@ const CaseComponent = () => {
               targetWidth: 1080,
               targetHeight: 1080,
             };
-            cesdk.engine.block.exportVideo(scene, mimeType, progressCallback)
-              .then(blob => {
-                  const anchor = document.createElement('a');
-                  anchor.href = URL.createObjectURL(blob);
-                  anchor.download = 'exported-video.mp4';
-                  anchor.click();
-              })
-            .catch(error => console.error('Error exporting video:', error));
+            try {
+              const blob = await cesdk.engine.block.exportVideo(scene, mimeType, progressCallback);
+              
+              // Download the exported video
+              const anchor = document.createElement('a');
+              anchor.href = URL.createObjectURL(blob);
+              anchor.download = 'exported-video.mp4';
+              anchor.click();
+            } catch (error) {
+              console.error('Error exporting video:', error);
+            }
           },
           onBack: () => {
             window.alert('Back callback!');
@@ -98,9 +101,11 @@ const CaseComponent = () => {
           },
           navigation: {
             action: {
+              save: true,
               export: {
-                show: true
-              }
+                show: true,
+                format: ['video/mp4']
+              },
             }
           }
         }
