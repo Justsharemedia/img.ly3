@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from 'react';
 const CaseComponent = () => {
   const cesdkContainer = useRef(null);
 
+  let page;
   useEffect(() => {
     const getVideoPathFromUrl = () => {
       const search = window.location.search;
@@ -76,7 +77,7 @@ const CaseComponent = () => {
               targetHeight: 1080,
             };
             try {
-              const videoBlob = await cesdk.engine.block.exportVideo(scene, progressCallback, videoOptions);
+              const videoBlob = await cesdk.engine.block.exportVideo(page, progressCallback, videoOptions);
               
               // Download the exported video
               const anchor = document.createElement('a');
@@ -123,7 +124,6 @@ const CaseComponent = () => {
     };
   
     let cesdk;
-    let page;
     if (cesdkContainer.current) {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
