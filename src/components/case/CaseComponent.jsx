@@ -62,7 +62,7 @@ const CaseComponent = () => {
             const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
               console.log(`Progress: ${renderedFrames}/${encodedFrames}/${totalFrames}`);
             };
-            const options = {
+            const videoOptions = {
               targetWidth: 1080,
               targetHeight: 1080,
             };
