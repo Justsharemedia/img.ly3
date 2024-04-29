@@ -76,7 +76,7 @@ const CaseComponent = () => {
               targetHeight: 1080,
             };
             try {
-              const videoBlob = await engine.block.exportVideo(scene 'video/mp4', progressCallback, videoOptions);
+              const videoBlob = await engine.block.exportVideo(scene, progressCallback, videoOptions);
               
               // Download the exported video
               const anchor = document.createElement('a');
