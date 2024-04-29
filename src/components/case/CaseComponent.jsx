@@ -58,16 +58,25 @@ const CaseComponent = () => {
             })
             .then(response => response.json())
             .then(data => console.log('Success:', data))
+            console.log(scene);
+            console.log(page);
             const mimeType = 'video/mp4';
             const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
-              console.log(`Progress: ${renderedFrames}/${encodedFrames}/${totalFrames}`);
+              console.log(
+                'Rendered',
+                renderedFrames,
+                'frames and encoded',
+                encodedFrames,
+                'frames out of',
+                totalFrames
+              );
             };
             const videoOptions = {
               targetWidth: 1080,
               targetHeight: 1080,
             };
             try {
-              const blob = await cesdk.engine.block.exportVideo(scene, mimeType, progressCallback);
+              const blob = await cesdk.engine.block.exportVideo(page, mimeType, progressCallback);
               
               // Download the exported video
               const anchor = document.createElement('a');
