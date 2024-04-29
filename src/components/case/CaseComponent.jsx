@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from 'react';
 
 const CaseComponent = () => {
   const cesdkContainer = useRef(null);
+  let engine;
 
   useEffect(() => {
     const getVideoPathFromUrl = () => {
@@ -122,7 +123,7 @@ const CaseComponent = () => {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
           cesdk = instance;
-          const engine = cesdk.engine;
+          engine = cesdk.engine;
           const layout = 'Horizontal';
     
           let scene = engine.scene.createVideo();
