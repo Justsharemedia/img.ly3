@@ -116,24 +116,24 @@ const CaseComponent = () => {
         instance.engine.block.appendChild(newPage, instance.engine.block.create('video'));
         instance.engine.block.setWidth(newPage, 1080);
         instance.engine.block.setHeight(newPage, 1080);
-
+    
         instance.engine.editor.setSettingBool('page/title/show', false);
         instance.addDefaultAssetSources();
         instance.addDemoAssetSources({ sceneMode: 'Video' });
-
+    
         instance.engine.block.setDuration(newPage, 60);
         const solidColor = instance.engine.block.createFill('color');
         const rgbaBlack = { r: 0, g: 0, b: 0, a: 1 };
         instance.engine.block.setColor(solidColor, 'fill/color/value', rgbaBlack);
         instance.engine.block.setFill(newPage, solidColor);
-
+    
         if (videoPath) {
           const videoBlock = instance.engine.block.create('graphic');
           instance.engine.block.setShape(videoBlock, instance.engine.block.createShape('rect'));
           const videoFill = instance.engine.block.createFill('video');
           instance.engine.block.setString(videoFill, 'fill/video/fileURI', videoPath);
           instance.engine.block.setFill(videoBlock, videoFill);
-
+    
           instance.engine.block.setDuration(videoBlock, 60);
           instance.engine.block.setPositionX(videoBlock, 0);
           instance.engine.block.setPositionXMode(videoBlock, 'Absolute');
@@ -143,16 +143,17 @@ const CaseComponent = () => {
           instance.engine.block.setHeight(videoBlock, 607.5);
           instance.engine.block.appendChild(newPage, videoBlock);
         }
-
+    
         instance.engine.scene.zoomToBlock(newPage);
       });
     }
-
+    
     return () => {
       if (cesdk) {
         cesdk.dispose();
       }
     };
+    
   }, [cesdkContainer]);
 
   return (
