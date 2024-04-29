@@ -48,17 +48,45 @@ const CaseComponent = () => {
               callback_message: 'User triggered export'
             };
         
-            fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
+            try {
+              const response = await fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+              });
+        
+              if (!response.ok) {
+                throw new Error('Failed to update user in Bubble.');
+              }
+  
+              // Continue with video export logic
+              const mimeType = 'video/mp4';
+              const progressCallback = (renderedFrames, encodedFrames, totalFrames) => {
+                console.log(
+                  'Rendered',
+                  renderedFrames,
+                  'frames and encoded',
+                  encodedFrames,
+                  'frames out of',
+                  totalFrames
+                );
+              };
+              const blob = await engine.block.exportVideo(
+                page,
+                mimeType,
+                progressCallback,
+                {}
+              );
 
-              },
-              body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            .catch((error) => console.error('Error:', error));
+              const anchor = document.createElement('a');
+              anchor.href = URL.createObjectURL(blob);
+              anchor.download = 'exported-video.mp4';
+              anchor.click();
+            } catch (error) {
+              console.error('Error:', error);
+            }
           },
           onBack: () => {
             window.alert('Back callback!');
@@ -68,10 +96,6 @@ const CaseComponent = () => {
           },
           onSave: (scene) => {
             window.alert('Save callback!');
-            console.info(scene);
-          },
-          onDownload: (scene) => {
-            window.alert('Download callback!');
             console.info(scene);
           },
         },
