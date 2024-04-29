@@ -123,6 +123,7 @@ const CaseComponent = () => {
     };
   
     let cesdk;
+    let page;
     if (cesdkContainer.current) {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
