@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from 'react';
 
 const CaseComponent = () => {
   const cesdkContainer = useRef(null);
+  let cesdk;
   let engine;
   let page;
 
