@@ -24,6 +24,14 @@ const CaseComponent = () => {
       console.log('VideoID used:', videoID);
       return videoID;
     };
+
+    const getVideoLocationFromURL = () => {
+      const search = window.location.search;
+      const params = new URLSearchParams(search);
+      const videoLocation = params.get('video_location');
+      console.log('Video Location used:', videoLocation);
+      return videoLocation;
+    };
   
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
@@ -35,6 +43,9 @@ const CaseComponent = () => {
     const videoID = getVideoIDFromURL();
     console.log('VideoID used:', videoID);
   
+    const videoLocation = getVideoLocationFromURL();
+    console.log('Video Location used:', videoLocation);
+
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
 
@@ -58,6 +69,7 @@ const CaseComponent = () => {
             timestamp: new Date().toISOString(), 
             customer_id: customer_id, 
             video_id: videoID,
+            video_location: videoLocation,
             callback_type: 'export',
             callback_message: 'User triggered export'
           };
