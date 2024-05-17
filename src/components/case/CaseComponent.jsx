@@ -74,7 +74,7 @@ const CaseComponent = () => {
             callback_message: 'User triggered export'
           };
       
-          fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user', {
+          fetch('https://justin-16657.bubbleapps.io/version-test/api/1.1/wf/editor_update_user/initialize', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
