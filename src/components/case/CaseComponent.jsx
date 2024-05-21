@@ -34,22 +34,11 @@ const CaseComponent = () => {
     };
 
     const getBrandLogoFromUrl = () => {
-      console.log(`getBrandLogo called. `)
-      console.log(window.location.search)
       const search = window.location.search;
       const params = new URLSearchParams(search);
-      const encodedBrandLogo = params.get('brand_logo');
-      if (encodedBrandLogo) {
-        // Decode the URL
-        const decodedBrandLogo =(decodeURIComponent(encodedBrandLogo));
-    
-        // Prepend "https:" if it starts with "//"
-        const correctBrandLogo = decodedBrandLogo.startsWith('//') ? 'https:' + decodedBrandLogo : decodedBrandLogo;
-        
-        console.log('Corrected Brand logo URL:', correctBrandLogo);
-        return correctBrandLogo;
-      }
-      return null;
+      const brandLogo = params.get('brand_logo');
+      console.log('Brand Logo used:', brandLogo);
+      return brandLogo;
     };
   
     const videoPath = getVideoPathFromUrl();
