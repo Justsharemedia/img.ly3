@@ -32,6 +32,14 @@ const CaseComponent = () => {
       console.log('Video Location used:', videoLocation);
       return videoLocation;
     };
+
+    const getBrandLogoFromUrl = () => {
+      const search = window.location.search;
+      const params = new URLSearchParams(search);
+      const brandLogo = params.get('brand_logo');
+      console.log('Brand logo URL:', brandLogo);
+      return brandLogo;
+    };
   
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
@@ -45,6 +53,9 @@ const CaseComponent = () => {
   
     const videoLocation = getVideoLocationFromURL();
     console.log('Video Location used:', videoLocation);
+
+    const brandLogoUrl = getBrandLogoFromUrl();
+    console.log('Final Brand Logo Path used:', brandLogoUrl);
 
     console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
 
@@ -164,6 +175,22 @@ const CaseComponent = () => {
             await engine.block.appendChild(page, videoBlock);
           }
     
+          if (brandLogoUrl) {
+            const logoBlock = engine.block.create('graphic');
+            engine.block.setShape(logoBlock, engine.block.createShape('rect'));
+            const logoFill = engine.block.createFill('image');
+            engine.block.setString(logoFill, 'fill/image/fileURI', brandLogoUrl);
+            engine.block.setFill(logoBlock, logoFill);
+      
+            // Set position and size
+            engine.block.setPositionX(logoBlock, 10); // Adjust position as needed
+            engine.block.setPositionY(logoBlock, 10); // Adjust position as needed
+            engine.block.setWidth(logoBlock, 100); // Adjust width as needed
+            engine.block.setHeight(logoBlock, 100); // Adjust height as needed
+      
+            await engine.block.appendChild(page, logoBlock);
+          }
+
           engine.scene.zoomToBlock(page);
         }
       );
