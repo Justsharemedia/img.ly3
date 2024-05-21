@@ -36,9 +36,18 @@ const CaseComponent = () => {
     const getBrandLogoFromUrl = () => {
       const search = window.location.search;
       const params = new URLSearchParams(search);
-      const brandLogo = params.get('brand_logo');
-      console.log('Brand logo URL:', brandLogo);
-      return brandLogo;
+      const encodedBrandLogo = params.get('brand_logo');
+      if (encodedBrandLogo) {
+        // Decode the URL
+        const decodedBrandLogo =(decodeURIComponent(encodedBrandLogo));
+    
+        // Prepend "https:" if it starts with "//"
+        const correctBrandLogo = decodedBrandLogo.startsWith('//') ? 'https:' + decodedBrandLogo : decodedBrandLogo;
+        
+        console.log('Corrected Brand logo URL:', correctBrandLogo);
+        return correctBrandLogo;
+      }
+      return null;
     };
   
     const videoPath = getVideoPathFromUrl();
@@ -182,11 +191,10 @@ const CaseComponent = () => {
             engine.block.setString(logoFill, 'fill/image/fileURI', brandLogoUrl);
             engine.block.setFill(logoBlock, logoFill);
       
-            // Set position and size
-            engine.block.setPositionX(logoBlock, 10); // Adjust position as needed
-            engine.block.setPositionY(logoBlock, 10); // Adjust position as needed
-            engine.block.setWidth(logoBlock, 100); // Adjust width as needed
-            engine.block.setHeight(logoBlock, 100); // Adjust height as needed
+            engine.block.setPositionX(logoBlock, 10); 
+            engine.block.setPositionY(logoBlock, 10); 
+            engine.block.setWidth(logoBlock, 100); 
+            engine.block.setHeight(logoBlock, 100); 
       
             await engine.block.appendChild(page, logoBlock);
           }
