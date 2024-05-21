@@ -34,6 +34,8 @@ const CaseComponent = () => {
     };
 
     const getBrandLogoFromUrl = () => {
+      console.log(`getBrandLogo called. `)
+      console.log(widow.location.search)
       const search = window.location.search;
       const params = new URLSearchParams(search);
       const encodedBrandLogo = params.get('brand_logo');
