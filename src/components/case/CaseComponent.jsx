@@ -53,6 +53,7 @@ const CaseComponent = () => {
         console.log('Corrected Brand logo URL:', correctedBrandLogoUrl);
         return correctedBrandLogoUrl;
       }
+
       return null;
     };
     
@@ -72,7 +73,7 @@ const CaseComponent = () => {
     console.log('Video Location used:', videoLocation);
 
     const brandLogoUrl = getBrandLogoFromUrl();
-    console.log('Final Brand Logo Path used:', brandLogoUrl);
+    console.log('Final Brand Logo Path used:', correctedBrandLogoUrl);
 
     const config = {
       role: 'Adopter',
