@@ -36,10 +36,19 @@ const CaseComponent = () => {
     const getBrandLogoFromUrl = () => {
       const search = window.location.search;
       const params = new URLSearchParams(search);
-      const brandLogo = params.get('brand_logo');
-      console.log('Brand logo URL:', brandLogo);
-      return brandLogo;
+      const encodedBrandLogo = params.get('brand_logo');
+      if (encodedBrandLogo) {
+        // Decode twice because of double encoding
+        const firstDecode = decodeURIComponent(encodedBrandLogo);
+        const fullyDecodedBrandLogo = decodeURIComponent(firstDecode);
+    
+        console.log('Fully decoded Brand logo URL:', fullyDecodedBrandLogo);
+        return fullyDecodedBrandLogo;
+      }
+      return null;
     };
+    
+    
   
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
@@ -56,9 +65,6 @@ const CaseComponent = () => {
 
     const brandLogoUrl = getBrandLogoFromUrl();
     console.log('Final Brand Logo Path used:', brandLogoUrl);
-
-    console.log('License Key:', process.env.NEXT_PUBLIC_LICENSE);
-
 
     const config = {
       role: 'Adopter',
