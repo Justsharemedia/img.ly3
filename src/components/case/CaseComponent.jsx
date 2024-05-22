@@ -48,7 +48,6 @@ const CaseComponent = () => {
       return null;
     };
     
-    
   
     const videoPath = getVideoPathFromUrl();
     console.log('Final Video Path used:', videoPath);
