@@ -35,19 +35,22 @@ const CaseComponent = () => {
 
     const getBrandLogoFromUrl = () => {
       const search = window.location.search;
+      console.log('Current search string:', search); 
       const params = new URLSearchParams(search);
+      console.log('All URL parameters:', Array.from(params.entries()));
+
       const encodedBrandLogo = params.get('brand_logo');
+      console.log('Encoded Brand Logo:', encodedBrandLogo);  
+
       if (encodedBrandLogo) {
-        // Decode twice because of double encoding
+
         const firstDecode = decodeURIComponent(encodedBrandLogo);
         let fullyDecodedBrandLogo = decodeURIComponent(firstDecode);
     
-        // Ensure the URL starts with https:
         if (fullyDecodedBrandLogo.startsWith('//')) {
           fullyDecodedBrandLogo = 'https:' + fullyDecodedBrandLogo;
         }
     
-        // Replace spaces with %20 to make the URL valid
         const correctedBrandLogoUrl = fullyDecodedBrandLogo.replace(/ /g, '%20');
     
         console.log('Corrected Brand logo URL:', correctedBrandLogoUrl);
