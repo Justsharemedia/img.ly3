@@ -40,13 +40,22 @@ const CaseComponent = () => {
       if (encodedBrandLogo) {
         // Decode twice because of double encoding
         const firstDecode = decodeURIComponent(encodedBrandLogo);
-        const fullyDecodedBrandLogo = decodeURIComponent(firstDecode);
+        let fullyDecodedBrandLogo = decodeURIComponent(firstDecode);
     
-        console.log('Fully decoded Brand logo URL:', fullyDecodedBrandLogo);
-        return fullyDecodedBrandLogo;
+        // Ensure the URL starts with https:
+        if (fullyDecodedBrandLogo.startsWith('//')) {
+          fullyDecodedBrandLogo = 'https:' + fullyDecodedBrandLogo;
+        }
+    
+        // Replace spaces with %20 to make the URL valid
+        const correctedBrandLogoUrl = fullyDecodedBrandLogo.replace(/ /g, '%20');
+    
+        console.log('Corrected Brand logo URL:', correctedBrandLogoUrl);
+        return correctedBrandLogoUrl;
       }
       return null;
     };
+    
     
   
     const videoPath = getVideoPathFromUrl();
