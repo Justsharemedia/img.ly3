@@ -35,31 +35,15 @@ const CaseComponent = () => {
 
     const getBrandLogoFromUrl = () => {
       const search = window.location.search;
-      console.log('Current search string:', search); 
       const params = new URLSearchParams(search);
-      console.log('All URL parameters:', Array.from(params.entries()));
-
       const encodedBrandLogo = params.get('brand_logo');
-      console.log('Encoded Brand Logo:', encodedBrandLogo);  
-
       if (encodedBrandLogo) {
-
-        const firstDecode = decodeURIComponent(encodedBrandLogo);
-        let fullyDecodedBrandLogo = decodeURIComponent(firstDecode);
-    
-        if (fullyDecodedBrandLogo.startsWith('//')) {
-          fullyDecodedBrandLogo = 'https:' + fullyDecodedBrandLogo;
-        }
-    
-        const correctedBrandLogoUrl = fullyDecodedBrandLogo.replace(/ /g, '%20');
-    
-        console.log('Corrected Brand logo URL:', correctedBrandLogoUrl);
-        return correctedBrandLogoUrl;
+        const decodedBrandLogo = decodeURIComponent(encodedBrandLogo);
+        console.log('Decoded Brand logo URL:', decodedBrandLogo);
+        return decodedBrandLogo;
       }
-
       return null;
-    };
-    
+    };    
     
   
     const videoPath = getVideoPathFromUrl();
