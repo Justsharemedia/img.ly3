@@ -179,6 +179,7 @@ const CaseComponent = () => {
             engine.block.setString(logoFill, 'fill/image/imageFileURI', brandLogoUrl);
             engine.block.setFill(logoBlock, logoFill);
       
+            engine.block.setDuration(videoBlock, 60);
             engine.block.setPositionX(logoBlock, 10); 
             engine.block.setPositionY(logoBlock, 10); 
             engine.block.setWidth(logoBlock, 230); 
