@@ -181,8 +181,8 @@ const CaseComponent = () => {
       
             engine.block.setPositionX(logoBlock, 10); 
             engine.block.setPositionY(logoBlock, 10); 
-            engine.block.setWidth(logoBlock, 100); 
-            engine.block.setHeight(logoBlock, 100); 
+            engine.block.setWidth(logoBlock, 230); 
+            engine.block.setHeight(logoBlock, 230); 
       
             await engine.block.appendChild(page, logoBlock);
           }
