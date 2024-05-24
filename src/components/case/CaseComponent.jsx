@@ -176,7 +176,7 @@ const CaseComponent = () => {
             const logoBlock = engine.block.create('graphic');
             engine.block.setShape(logoBlock, engine.block.createShape('rect'));
             const logoFill = engine.block.createFill('image');
-            engine.block.setString(logoFill, 'fill/image/fileURI', brandLogoUrl);
+            engine.block.setString(logoFill, 'fill/image/imageFileURI', brandLogoUrl);
             engine.block.setFill(logoBlock, logoFill);
       
             engine.block.setPositionX(logoBlock, 10); 
