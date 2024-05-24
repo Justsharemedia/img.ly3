@@ -42,7 +42,7 @@ const CaseComponent = () => {
         console.log('Decoded Brand logo URL:', decodedBrandLogo);
         return decodedBrandLogo;
       }
-      return null;
+      return encodedBrandLogo;
     };    
     
   
