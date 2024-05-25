@@ -124,6 +124,19 @@ const CaseComponent = () => {
               },
             }
           }
+        },
+        pageFormats: {
+          'square': {
+            default: true,
+            width: 1080,
+            height: 1080,
+            unit: 'Pixel'
+          },
+          'instagram-portrait': {
+            width: 1080,
+            height: 1920,
+            unit: 'Pixel'
+          }
         }
       },
       license: process.env.NEXT_PUBLIC_LICENSE
@@ -180,7 +193,7 @@ const CaseComponent = () => {
             engine.block.setString(logoFill, 'fill/image/imageFileURI', brandLogoUrl);
             engine.block.setFill(logoBlock, logoFill);
       
-            engine.block.setDuration(videoBlock, 60);
+            engine.block.setDuration(logoBlock, 60);
             engine.block.setPositionX(logoBlock, 10); 
             engine.block.setPositionY(logoBlock, 10); 
             engine.block.setWidth(logoBlock, 230); 
