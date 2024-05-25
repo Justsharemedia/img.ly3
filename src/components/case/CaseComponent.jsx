@@ -93,6 +93,7 @@ const CaseComponent = () => {
           .then(data => console.log('Success:', data))
           exportVideo();
         },
+        onUpload: 'local',
         onBack: () => {
           window.alert('Back callback!');
         },
@@ -116,16 +117,15 @@ const CaseComponent = () => {
           },
           navigation: {
             action: {
-              save: true,
               export: {
                 show: true,
-                format: ['video/mp4']
+                format: ['video/mp4'],
+              save: true
               },
             }
           }
         }
       },
-      license: process.env.NEXT_PUBLIC_LICENSE
     };
   
     if (cesdkContainer.current) {
