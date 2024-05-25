@@ -94,26 +94,12 @@ const CaseComponent = () => {
           exportVideo();
         },
         onUpload: 'local',
-        onBack: () => {
-          window.alert('Back callback!');
-        },
-        onClose: () => {
-          window.alert('Close callback!');
-        },
-        onSave: (scene) => {
-          window.alert('Save callback!');
-          console.info(scene);
-        },
-        onDownload: (scene) => {
-          window.alert('Download callback!');
-          console.info(scene);
-        },
       },
 
       ui: {
         elements: {
           panels: {
-            settings: true
+            settings: false
           },
           navigation: {
             action: {
