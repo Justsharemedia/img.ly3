@@ -126,6 +126,7 @@ const CaseComponent = () => {
           }
         }
       },
+      license: process.env.NEXT_PUBLIC_LICENSE
     };
   
     if (cesdkContainer.current) {
