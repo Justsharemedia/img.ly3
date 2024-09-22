@@ -57,8 +57,6 @@ const CaseComponent = () => {
     const brandLogoUrl = getBrandLogoFromUrl();
     console.log('Final Brand Logo Path used:', brandLogoUrl);
 
-    console.log("License Key:", process.env.NEXT_PUBLIC_LICENSE);
-
 
     const config = {
       role: 'Adopter',
