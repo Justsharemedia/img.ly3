@@ -57,6 +57,9 @@ const CaseComponent = () => {
     const brandLogoUrl = getBrandLogoFromUrl();
     console.log('Final Brand Logo Path used:', brandLogoUrl);
 
+    console.log("License Key:", process.env.NEXT_PUBLIC_LICENSE);
+
+
     const config = {
       role: 'Adopter',
       theme: 'dark',
@@ -125,9 +128,11 @@ const CaseComponent = () => {
           }
         }
       },
+      
       license: process.env.NEXT_PUBLIC_LICENSE
     };
   
+    
     if (cesdkContainer.current) {
       CreativeEditorSDK.create(cesdkContainer.current, config).then(
         async (instance) => {
